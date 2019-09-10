@@ -37,11 +37,11 @@ public abstract class Appliance implements IAppliance {
 		this.description = description;
 	}
 
-	public Integer getPower() {
+	public Integer getPossiblePower() {
 		return power;
 	}
 
-	public void setPower(Integer power) {
+	public void setPossiblePower(Integer power) {
 		this.power = power;
 	}
 

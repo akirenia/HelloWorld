@@ -9,9 +9,11 @@ package com.epam.jm.home;
  */
 public interface IPluggable {
 
-	public void on();
+	public void plugIn(HomeAppliance appliance);
 
-	public void off();
+	public void plugOff(HomeAppliance appliance);
 
-	public boolean isOn();
+	public void plugOffAll();
+
+	public boolean isPlugged(HomeAppliance appliance);
 }

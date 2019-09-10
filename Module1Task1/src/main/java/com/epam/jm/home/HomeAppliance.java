@@ -10,7 +10,7 @@ import com.epam.jm.appliance.ApplianceCategory;
  * @author Anna_Kirenia
  *
  */
-public abstract class HomeAppliance extends Appliance implements IHomeAppliance {
+public abstract class HomeAppliance extends Appliance implements IHomeAppliance, ISwitchable, IPowered {
 
 	private HomeRoom room = null;
 	private boolean isOn = false;
@@ -19,20 +19,24 @@ public abstract class HomeAppliance extends Appliance implements IHomeAppliance 
 		super(name, power, category);
 	}
 
-	protected void assign(HomeRoom room) {
+	protected void plugIn(HomeRoom room) {
 		this.room = room;
 	}
 
-	protected void unassign() {
+	protected void plugOff() {
 		this.room = null;
 	}
 
-	public boolean isAssigned() {
+	public boolean isPlugged() {
 		return (this.room != null);
 	}
 
 	public HomeRoom getRoom() {
 		return this.room;
+	}
+
+	public Integer getPower() {
+		return this.isOn() ? this.getPossiblePower() : 0;
 	}
 
 	@Override

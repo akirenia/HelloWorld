@@ -11,28 +11,31 @@ import java.util.stream.Collectors;
  * @author Anna_Kirenia
  *
  */
-public class Home implements IHome {
+public class Home implements IHome, IPowered {
 
-	private String name;
-	private List<HomeRoom> rooms;
+	private String name = "";
+	private List<HomeRoom> rooms = new ArrayList<HomeRoom>();
 
 	public Home(String name) {
 		this.name = name;
-		this.rooms = new ArrayList<HomeRoom>();
 	}
 
+	@Override
 	public String getName() {
 		return this.name;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	@Override
 	public List<HomeRoom> getRooms() {
 		return this.rooms;
 	}
 
+	@Override
 	public HomeRoom getRoomByName(String name) {
 
 		for (HomeRoom room : this.rooms) {
@@ -42,11 +45,13 @@ public class Home implements IHome {
 		return null;
 	}
 
+	@Override
 	public List<HomeRoom> getRoomsByType(String type) {
 
 		return rooms.stream().filter(v -> v.getType().name().equalsIgnoreCase(type)).collect(Collectors.toList());
 	}
 
+	@Override
 	public HomeAppliance getApplianceByName(String name) {
 		for (HomeRoom room : this.rooms) {
 			HomeAppliance app = room.getApplianceByName(name);
@@ -56,25 +61,33 @@ public class Home implements IHome {
 		return null;
 	}
 
+	@Override
 	public void addRoom(HomeRoom room) {
-		if (this.rooms == null)
-			this.rooms = new ArrayList<HomeRoom>();
 
 		this.rooms.add(room);
 	}
 
+	@Override
 	public void removeRoom(HomeRoom room) {
-		if (this.rooms != null)
-			this.rooms.remove(room);
+		this.rooms.remove(room);
 	}
 
+	@Override
+	public Integer getPossiblePower() {
+
+		Integer power = 0;
+		for (HomeRoom room : rooms) {
+			power += room.getPossiblePower();
+		}
+		return power;
+	}
+
+	@Override
 	public Integer getPower() {
 
 		Integer power = 0;
-		if (rooms != null) {
-			for (HomeRoom room : rooms) {
-				power += room.getPower();
-			}
+		for (HomeRoom room : rooms) {
+			power += room.getPower();
 		}
 		return power;
 	}

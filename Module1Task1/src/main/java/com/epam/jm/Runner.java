@@ -38,10 +38,10 @@ public class Runner {
 		Dishwasher app3 = new Dishwasher("App3", 100);
 		Freezer app4 = new Freezer("App4", 1000);
 
-		room1.assign(app1);
-		room2.assign(app2);
-		room3.assign(app3);
-		room4.assign(app4);
+		room1.plugIn(app1);
+		room2.plugIn(app2);
+		room3.plugIn(app3);
+		room4.plugIn(app4);
 		System.out.println("4:" + home.getPower());
 
 		home.addRoom(room1);
@@ -59,17 +59,21 @@ public class Runner {
 		app3.on();
 		app4.on();
 
+		System.out.println("7:" + home.getPossiblePower());
 		System.out.println("7:" + home.getPower());
 		System.out.println("7:" + home.toString());
 		home.removeRoom(room3);
+		System.out.println("8:" + home.getPossiblePower());
 		System.out.println("8:" + home.getPower());
 		System.out.println("8:" + home.toString());
 		home.removeRoom(room1);
-		room2.unassign(app2);
+		room2.plugOff(app2);
 		app4.off();
+		System.out.println("9:" + home.getPossiblePower());
 		System.out.println("9:" + home.getPower());
 		System.out.println("9:" + home.toString());
-		room2.assign(app2);
+		room2.plugIn(app2);
+		System.out.println("10:" + home.getPossiblePower());
 		System.out.println("10:" + home.getPower());
 		System.out.println("10:" + home.toString());
 

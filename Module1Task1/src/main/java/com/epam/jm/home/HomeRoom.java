@@ -14,54 +14,58 @@ import com.epam.jm.room.RoomType;
  * @author Anna_Kirenia
  *
  */
-public class HomeRoom extends Room implements IHomeRoom {
+public class HomeRoom extends Room implements IHomeRoom, IPluggable, IPowered {
 
-	private List<HomeAppliance> appliances;
+	private List<HomeAppliance> appliances = new ArrayList<HomeAppliance>();
 
 	public HomeRoom(String name) {
 		super(name);
-		appliances = new ArrayList<HomeAppliance>();
 	}
 
 	public HomeRoom(String name, RoomType type) {
 		super(name);
-		appliances = new ArrayList<HomeAppliance>();
 	}
 
-	public Integer getPower() {
+	public Integer getPossiblePower() {
 		Integer power = 0;
-		if (appliances != null) {
-			for (HomeAppliance app : appliances) {
-				power += app.isOn() ? app.getPower() : 0;
-			}
+		for (HomeAppliance app : appliances) {
+			power += app.getPossiblePower();
 		}
 		return power;
 	}
 
-	public void assign(HomeAppliance appliance) {
+	public Integer getPower() {
+		Integer power = 0;
+		for (HomeAppliance app : appliances) {
+			power += app.getPower();
+		}
+		return power;
+	}
+
+	public void plugIn(HomeAppliance appliance) {
 		if (appliance == null)
 			throw new IllegalArgumentException("appliance can't be null");
-		if (!isAssigned(appliance)) {
+		if (!isPlugged(appliance)) {
 			appliances.add(appliance);
-			appliance.assign(this);
+			appliance.plugIn(this);
 		}
 	}
 
-	public void unassign(HomeAppliance appliance) {
+	public void plugOff(HomeAppliance appliance) {
 		if (appliance == null)
 			throw new IllegalArgumentException("appliance can't be null");
-		if (isAssigned(appliance)) {
+		if (isPlugged(appliance)) {
 			appliances.remove(appliance);
-			appliance.unassign();
+			appliance.plugOff();
 		}
 	}
 
-	public void unassignAll() {
-		if (appliances != null)
-			appliances.clear();
+	public void plugOffAll() {
+
+		appliances.clear();
 	}
 
-	public boolean isAssigned(HomeAppliance appliance) {
+	public boolean isPlugged(HomeAppliance appliance) {
 
 		return appliances.contains(appliance);
 	}

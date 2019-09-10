@@ -17,9 +17,9 @@ public interface IAppliance {
 
 	public void setDescription(String description);
 
-	public Integer getPower();
+	public Integer getPossiblePower();
 
-	public void setPower(Integer power);
+	public void setPossiblePower(Integer power);
 
 	public String getManufacturer();
 
